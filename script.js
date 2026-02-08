@@ -1,59 +1,37 @@
-// ============================================
-// HAMBURGER MENU
-// ============================================
-
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobileMenu");
 const body = document.body;
 
-// Toggle mobile menu
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    mobileMenu.classList.toggle('active');
+hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("active");
+  mobileMenu.classList.toggle("active");
+  body.classList.toggle("menu-open");
 });
 
-// Close menu when clicking a link
-const mobileLinks = mobileMenu.querySelectorAll('a');
-mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        mobileMenu.classList.remove('active');
-    });
+mobileMenu.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => {
+    hamburger.classList.remove("active");
+    mobileMenu.classList.remove("active");
+    body.classList.remove("menu-open");
+  });
 });
 
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
-        hamburger.classList.remove('active');
-        mobileMenu.classList.remove('active');
-    }
+document.addEventListener("click", (e) => {
+  if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+    hamburger.classList.remove("active");
+    mobileMenu.classList.remove("active");
+    body.classList.remove("menu-open");
+  }
 });
 
-// ============================================
-// SMOOTH SCROLLING
-// ============================================
+window.addEventListener("scroll", () => {
+  const nav = document.getElementById("navbar");
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
+  if (window.scrollY > 40) {
+    nav.style.boxShadow = "0 8px 25px rgba(0,0,0,0.08)";
+    nav.style.background = "rgba(255,255,255,0.85)";
+  } else {
+    nav.style.boxShadow = "0 2px 10px rgba(0,0,0,0.1)";
+    nav.style.background = "rgba(255,255,255,0.98)";
+  }
 });
-
-// ============================================
-// FORM SUBMISSION
-// ============================================
-
-document.querySelector('.contact-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    alert('Takk for din forespørsel! Vi kontakter deg snart.');
-    e.target.reset();
-});
-
-console.log('✅ LogiPrint website loaded!');
